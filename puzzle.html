@@ -1,0 +1,220 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4x4 Photo Puzzle</title>
+  <style>
+    /* Responsive Puzzle Container */
+    #puzzle-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 columns for a 4x4 puzzle */
+      gap: 2px; /* Spacing between pieces */
+      width: 90vw; /* Make the container width 90% of the viewport width */
+      max-width: 600px; /* Prevent the container from growing too large */
+      aspect-ratio: 1; /* Keep the container square */
+      margin: 20px auto;
+      border: 2px solid #000;
+    }
+
+    /* Responsive Puzzle Pieces */
+    .puzzle-piece {
+      width: 100%; /* Each piece adapts to the container */
+      aspect-ratio: 1; /* Keep each piece square */
+      background-size: 100% 100%; /* Ensure the pieces match the container size */
+      border: 1px solid #ddd;
+      cursor: grab;
+    }
+
+    /* Responsive Page Styles */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: rgb(202, 170, 170);
+    }
+
+    h1 {
+      margin-top: 20px;
+      font-size: 2rem;
+    }
+
+    p {
+      font-size: 1rem;
+      color: #333;
+    }
+
+    /* Button Styles */
+    #check-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    #check-btn:hover {
+      background-color: #45a049;
+    }
+
+    /* Message Box Styles */
+    #message-box {
+      margin-top: 20px;
+      padding: 20px;
+      font-size: 1.2rem;
+      display: none;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .correct {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .incorrect {
+      background-color: #f44336;
+      color: white;
+    }
+
+    #retry-btn, #redirect-btn {
+      padding: 10px 20px;
+      font-size: 1rem;
+      margin-top: 10px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #retry-btn {
+      background-color: #f44336;
+    }
+
+    #retry-btn:hover {
+      background-color: #e53935;
+    }
+
+    #redirect-btn {
+      background-color: #2196F3;
+    }
+
+    #redirect-btn:hover {
+      background-color: #1976D2;
+    }
+  </style>
+</head>
+<body>
+  <h1>Solve the Puzzle!</h1>
+  <p>Drag and drop the pieces to complete the image.</p>
+
+  <!-- Puzzle Container -->
+  <div id="puzzle-container">
+    <div class="puzzle-piece" id="piece-1" draggable="true" style="background-image: url('image1.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-2" draggable="true" style="background-image: url('image2x1.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-3" draggable="true" style="background-image: url('image3x1.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-4" draggable="true" style="background-image: url('image4x1.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-5" draggable="true" style="background-image: url('image1x2.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-6" draggable="true" style="background-image: url('image2x2.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-7" draggable="true" style="background-image: url('image3x2.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-8" draggable="true" style="background-image: url('image4x2.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-9" draggable="true" style="background-image: url('image1x3.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-10" draggable="true" style="background-image: url('image2x3.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-11" draggable="true" style="background-image: url('image3x3.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-12" draggable="true" style="background-image: url('image4x3.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-13" draggable="true" style="background-image: url('image1x4.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-14" draggable="true" style="background-image: url('image2x4.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-15" draggable="true" style="background-image: url('image3x4.jpeg');"></div>
+    <div class="puzzle-piece" id="piece-16" draggable="true" style="background-image: url('image4x4.jpeg');"></div>
+  </div>
+
+  <button id="check-btn">Check Solution</button>
+
+  <div id="message-box"></div>
+
+  <script>
+    const pieces = document.querySelectorAll('.puzzle-piece');
+    const checkBtn = document.getElementById('check-btn');
+    const messageBox = document.getElementById('message-box');
+
+    // Shuffle the puzzle pieces at the start
+    const positions = Array.from(pieces).sort(() => Math.random() - 0.5);
+    const container = document.getElementById('puzzle-container');
+    container.innerHTML = ''; // Clear current pieces
+    positions.forEach(piece => container.appendChild(piece)); // Append shuffled pieces
+
+    // Drag and Drop Logic
+    pieces.forEach(piece => {
+      piece.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text', e.target.id);
+      });
+
+      piece.addEventListener('dragover', (e) => {
+        e.preventDefault();
+      });
+
+      piece.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const draggedId = e.dataTransfer.getData('text');
+        const droppedId = e.target.id;
+
+        // Swap the dragged and dropped pieces
+        const draggedPiece = document.getElementById(draggedId);
+        const droppedPiece = document.getElementById(droppedId);
+
+        const temp = draggedPiece.style.backgroundImage;
+        draggedPiece.style.backgroundImage = droppedPiece.style.backgroundImage;
+        droppedPiece.style.backgroundImage = temp;
+      });
+    });
+
+    // Check the puzzle when the button is clicked
+    checkBtn.addEventListener('click', checkPuzzle);
+
+    // Check if the puzzle is solved
+    function checkPuzzle() {
+      const pieces = document.querySelectorAll('.puzzle-piece');
+      const correctImages = [
+        'image1.jpeg', 'image2x1.jpeg', 'image3x1.jpeg', 'image4x1.jpeg',
+        'image1x2.jpeg', 'image2x2.jpeg', 'image3x2.jpeg', 'image4x2.jpeg',
+        'image1x3.jpeg', 'image2x3.jpeg', 'image3x3.jpeg', 'image4x3.jpeg',
+        'image1x4.jpeg', 'image2x4.jpeg', 'image3x4.jpeg', 'image4x4.jpeg'
+      ];
+      let isCorrect = true;
+
+      pieces.forEach((piece, index) => {
+        const correctImage = `url("${correctImages[index]}")`;
+        if (piece.style.backgroundImage !== correctImage) {
+          isCorrect = false;
+        }
+      });
+
+      // Show message based on the result
+      if (isCorrect) {
+        messageBox.textContent = 'Congratulations! You solved the puzzle!';
+        messageBox.className = 'correct';
+      } else {
+        messageBox.innerHTML = 'Sorry, the puzzle is not solved. <br>';
+        messageBox.className = 'incorrect';
+        messageBox.innerHTML += '<button id="retry-btn">Retry</button> <button id="redirect-btn">Go to Puzzle</button>';
+
+        // Retry button logic
+        document.getElementById('retry-btn').addEventListener('click', () => {
+          window.location.reload(); // Reload the page to retry the puzzle
+        });
+
+        // Redirect button logic
+        document.getElementById('redirect-btn').addEventListener('click', () => {
+          window.location.href = 'puzzle-page.html'; // Replace with the actual puzzle page URL
+        });
+      }
+
+      messageBox.style.display = 'block'; // Display the message box
+    }
+  </script>
+</body>
+</html>

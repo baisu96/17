@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personalized Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #a17b7d;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background:  #d1afaf;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question h3 {
+            margin: 0 0 10px;
+        }
+        .answers {
+            list-style: none;
+            padding: 0;
+        }
+        .answers li {
+            margin-bottom: 10px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .results {
+            margin-top: 20px;
+            padding: 10px;
+            background: #e7f3e7;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            display: none;
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Personalized Quiz</h1>
+        <form id="quiz-form">
+            <div class="question">
+                <h3>1. What's the best doughnut flavour?</h3>
+                <ul class="answers">
+                    <li><input type="radio" name="q1" value="glazed">Glazed</li>
+                    <li><input type="radio" name="q1" value="hazelnutty">Hazelnutty</li>
+                    <li><input type="radio" name="q1" value="chocolate"> Chocolate</li>
+                    <li><input type="radio" name="q1" value="plain"> Plain</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>2. My best quality is...?</h3>
+                <ul class="answers">
+                    <li><input type="radio" name="q2" value="chill guy"> Chill guy</li>
+                    <li><input type="radio" name="q2" value="smart"> Smart</li>
+                    <li><input type="radio" name="q2" value="funny"> Funny</li>
+                    <li><input type="radio" name="q2" value="kind"> Kind</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>3. My favourite human?</h3>
+                <ul class="answers">
+                    <li><input type="radio" name="q3" value="mummy">Mummy</li>
+                    <li><input type="radio" name="q3" value="baisu">Baisu</li>
+                    <li><input type="radio" name="q3" value="friend"> Friend</li>
+                    <li><input type="radio" name="q3" value="diddy">Diddy</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>4. Rumaisa's best trait?</h3>
+                <ul class="answers">
+                    <li><input type="radio" name="q4" value="all (she is perfect)"> All (she is perfect)</li>
+                    <li><input type="radio" name="q4" value="kindness"> Kindness</li>
+                    <li><input type="radio" name="q4" value="humor"> Humor</li>
+                    <li><input type="radio" name="q4" value="intelligence"> Intelligence</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>5. What does the word 'husn' mean?</h3>
+                <ul class="answers">
+                    <li><input type="radio" name="q5" value="beauty">Beauty</li>
+                    <li><input type="radio" name="q5" value="Rumaisa">Rumaisa</li>
+                    <li><input type="radio" name="q5" value="kindness"> Kindness</li>
+                    <li><input type="radio" name="q5" value="love"> Love</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>6. Which movie is the most adventurous?</h3>
+                <ul class="answers">
+                    <li><input type="radio" name="q6" value="Jumangi"> Jumangi</li>
+                    <li><input type="radio" name="q6" value="Inception"> Inception</li>
+                    <li><input type="radio" name="q6" value="Avatar"> Avatar</li>
+                    <li><input type="radio" name="q6" value="our lives"> Our Lives</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>7. If you could do one thing for an entire day, it would be?</h3>
+                <ul class="answers">
+                    <li><input type="radio" name="q7" value="work"> Work</li>
+                    <li><input type="radio" name="q7" value="eat"> Eat</li>
+                    <li><input type="radio" name="q7" value="sleep"> Sleep</li>
+                    <li><input type="radio" name="q7" value="read"> Read</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>8. The best way to play with a cat?</h3>
+                <ul class="answers">
+                    <li><input type="radio" name="q8" value="cuddle it and cry because u have no human to cuddle with"> Cuddle it and cry because u have no human to cuddle with</li>
+                    <li><input type="radio" name="q8" value="chase it"> Chase it</li>
+                    <li><input type="radio" name="q8" value="feed it"> Feed it</li>
+                    <li><input type="radio" name="q8" value="ignore it"> Ignore it</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>9. The skill I need to refine is?</h3>
+                <ul class="answers">
+                    <li><input type="radio" name="q9" value="time management"> Time management</li>
+                    <li><input type="radio" name="q9" value="organization"> Organization</li>
+                    <li><input type="radio" name="q9" value="communication"> Communication</li>
+                    <li><input type="radio" name="q9" value="coding"> Coding</li>
+                </ul>
+            </div>
+            <div class="question">
+                <h3>10. Best ice cream flavour?</h3>
+                <ul class="answers">
+                    <li><input type="radio" name="q10" value="schokolade"> Schokolade</li>
+                    <li><input type="radio" name="q10" value="vanilla"> Vanilla</li>
+                    <li><input type="radio" name="q10" value="strawberry"> Strawberry</li>
+                    <li><input type="radio" name="q10" value="mint"> Mint</li>
+                </ul>
+            </div>
+            <button type="button" onclick="checkResults()">Check Results</button>
+        </form>
+        <div class="results" id="results">
+            <h3>Your Results</h3>
+            <p id="score"></p>
+            <p id="wrong-answers"></p>
+        </div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            q1: "hazelnutty",
+            q2: "chill guy",
+            q3: "diddy",
+            q4: "all (she is perfect)",
+            q5: "Rumaisa",
+            q6: "our lives",
+            q7: "sleep",
+            q8: "cuddle it and cry because u have no human to cuddle with",
+            q9: "communication",
+            q10: "schokolade"
+        };
+
+        function checkResults() {
+            const form = document.getElementById('quiz-form');
+            const resultsDiv = document.getElementById('results');
+            const scoreDisplay = document.getElementById('score');
+            const wrongAnswersDisplay = document.getElementById('wrong-answers');
+
+            let score = 0;
+            let wrongAnswers = [];
+
+            for (let question in correctAnswers) {
+                const userAnswer = form[question]?.value;
+                if (userAnswer === correctAnswers[question]) {
+                    score++;
+                } else {
+                    wrongAnswers.push(`Question ${question.slice(1)}: Correct answer is "${correctAnswers[question]}"`);
+                }
+            }
+
+            scoreDisplay.textContent = `You scored ${score} out of ${Object.keys(correctAnswers).length}`;
+            wrongAnswersDisplay.innerHTML = wrongAnswers.length
+                ? `You got the following questions wrong:<br>${wrongAnswers.join('<br>')}`
+                : "Perfect score! You got all answers correct!";
+            resultsDiv.style.display = "block";
+        }
+    </script>
+</body>
+</html>

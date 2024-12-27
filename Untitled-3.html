@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pookie's Day</title>
+    <style>
+        /* General Body Styling */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #C8AAAA; /* Dark blue background */
+            background-image: radial-gradient(circle at 20% 30%, #ffffff 1px, transparent 2px),
+                              radial-gradient(circle at 50% 80%, #ffffff 1px, transparent 2px),
+                              radial-gradient(circle at 70% 20%, #ffffff 1px, transparent 2px),
+                              radial-gradient(circle at 90% 50%, #ffffff 1px, transparent 2px);
+            background-size: 100px 100px;
+        }
+
+        /* Top Row Container */
+        .top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+        }
+
+        /* My Account Button */
+        .my-account {
+            text-decoration: none;
+            font-size: 16px;
+            color: #fff;
+            background-color: rgb(96 69 70);
+            padding: 10px 30px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .my-account:hover {
+            background-color: #555;
+        }
+
+        /* Sign-Up Picture */
+        .sign-up img {
+            width: 200px;
+            height: 100px;
+        }
+
+        /* Center Image Styles */
+        .center-image {
+            display: block;
+            margin: 70px auto 0;
+        }
+
+        /* Image Container for Puzzle and Memory Lane */
+        .image-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-top: 100px;
+        }
+
+        /* Image Styles */
+        .image-container img {
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            margin: 0 15px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <!-- Top Row -->
+    <div class="top-row">
+        <a href="my account.html" class="my-account">My Account</a>
+        <div class="sign-up">
+            <a href="signup.html">
+                <img src="sign.png" alt="Sign-Up Image">
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Image -->
+    <img id="main-image" src="Happy .png" alt="Happy Image" class="center-image">
+
+    <!-- Image Container -->
+    <div class="image-container">
+        <a href="puzzle.html">
+            <img src="puzzle.png" alt="Puzzle Image">
+        </a>
+        <a href= "memory.html">
+        <img src="memorylane.png" alt="Memory Lane Image">
+         </a>
+        <a href="questionaire.html">
+        <img src="trivia.png">
+    </a>
+    </div>
+
+    <script>
+        // Attach click event to the main image
+        document.getElementById('main-image').addEventListener('click', function() {
+            confetti({
+                particleCount: 100,
+                spread: 70,
+                origin: { y: 0.6 }
+            });
+        });
+    </script>
+</body>
+</html>
